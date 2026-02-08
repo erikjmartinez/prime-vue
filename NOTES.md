@@ -12,3 +12,8 @@ Notes:
 - updated the layout for the modal. 
 - looking into adding the skeleton loading animations for the ideas table. currently it is only adding it for the initial load but i want it on every load and click of the refresh load. reasoning is that if we are calling an api then it makes sense, who knows how may records we are pulling from the call.
 - added a skeleton loading animation for the grid view as that was 'broken' since i updated the  loading animation for the table.
+
+- started phase 3 @ 4:19 PM
+- lightbulb icon not showing. looking up documentation for icons - https://github.com/primefaces/primeicons/blob/master/raw-svg/lightbulb.svg
+- huh weird -  the bulb icon just doesnt want to load so i will try a different icon. no big deal. documentation is kind of meh
+- stopping here to take dogs out for a walk. will revist this within the next two hours (depending on my dogs and how long they want to go on a walk for.) - staopping -4:30PM 02/08/2026
