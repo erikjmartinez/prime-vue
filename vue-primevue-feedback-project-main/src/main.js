@@ -13,6 +13,10 @@ import 'primeflex/primeflex.css'
 import 'primeicons/primeicons.css'
 import 'primevue/resources/primevue.min.css'
 
+// Theme: Light theme (saga-blue) as base + dark mode overrides
+import 'primevue/resources/themes/saga-blue/theme.css'
+import './assets/dark-mode.css'
+
 // Initialize theme before app mounts
 const { initTheme } = useTheme()
 initTheme()

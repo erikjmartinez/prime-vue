@@ -38,7 +38,7 @@
 > **Started:** 5:47 PM
 - double checked phase 4 and made sure we had the  keyboard + SR support. Surpirse, it wasn't implemented.
 - shortcut for switching from light to dark theme is CRTL+SHIFT+L
-- intresting. SO for the themeing part, i am looking at the documentation here: https://primevue.org/theming/styled/#darkmode but looking at the code we are actually implementing it differently 
+- intresting. So for the themeing part, I am looking at the documentation here: https://primevue.org/theming/styled/#darkmode but looking at the code we are actually implementing it differently. I dont think it is a bad approach but it is something else that will need to be retereived through the network causing another load which could affect app performance.
 ```
 // Apply theme by swapping CSS link
 function applyTheme() {
@@ -61,7 +61,17 @@ function applyTheme() {
   localStorage.setItem(THEME_KEY, isDark.value ? 'dark' : 'light')
 }
 ```
+- after talking ot cursor about this issue, and with us using primevue v3, options are little different then in v4. 
+- approach summary:
+```
+Approach
+Instead of loading separate theme CSS files from CDN, we will:
 
+Import the light theme (saga-blue) statically at build time
+Create a dark mode CSS file that overrides CSS variables when .dark-mode class is present
+Toggle the class on <html> element for instant theme switching
+```
+- Replace CDN loading with class toggle which will lead results to a ~10KB per theme load and ~2KB CSS override.
 ---
 
 ## ⏱️ Time Tracking
@@ -71,4 +81,4 @@ function applyTheme() {
 | Stopped | 4:30 PM - 02/08/2026 |
 | Continuing | 5:20 PM - 02/08/2026 |
 
-**Total hours as of now:** 1hr and 23mins
+**Total hours as of now:** 2hr and 35mins

@@ -1,9 +1,7 @@
-
 import { ref, watch } from 'vue'
 
 const THEME_KEY = 'pv_theme'
-const LIGHT_THEME = 'saga-blue'
-const DARK_THEME = 'arya-blue'
+const DARK_CLASS = 'dark-mode'
 
 // Reactive theme state (shared across components)
 const isDark = ref(false)
@@ -20,23 +18,13 @@ function initTheme() {
   applyTheme()
 }
 
-// Apply theme by swapping CSS link
+// Apply theme by toggling class on <html> element
 function applyTheme() {
-  const theme = isDark.value ? DARK_THEME : LIGHT_THEME
-  const linkId = 'theme-link'
-  
-  let link = document.getElementById(linkId)
-  
-  if (!link) {
-    // Create link element if it doesn't exist
-    link = document.createElement('link')
-    link.id = linkId
-    link.rel = 'stylesheet'
-    document.head.appendChild(link)
+  if (isDark.value) {
+    document.documentElement.classList.add(DARK_CLASS)
+  } else {
+    document.documentElement.classList.remove(DARK_CLASS)
   }
-  
-  link.href = `https://unpkg.com/primevue@3/resources/themes/${theme}/theme.css`
-  
   // Save preference
   localStorage.setItem(THEME_KEY, isDark.value ? 'dark' : 'light')
 }
