@@ -59,6 +59,11 @@ html.dark-mode {
   --highlight-bg: rgba(100, 181, 246, 0.16);
   --highlight-text-color: rgba(255, 255, 255, 0.87);
 
+  /* Status colors - lighter for dark mode visibility */
+  --red-500: #ef9a9a;
+  --orange-500: #ffb74d;
+  --green-500: #81c784;
+
   /* Color scheme hint for browser */
   color-scheme: dark;
 }
@@ -72,3 +77,365 @@ html.dark-mode body {
   background-color: var(--surface-ground);
 }
 
+/* =================================================================
+   PrimeVue Component Overrides for Dark Mode
+   ================================================================= */
+
+/* -----------------------------------------------------------------
+   DataTable
+   ----------------------------------------------------------------- */
+html.dark-mode .p-datatable {
+  background: var(--surface-card);
+}
+
+html.dark-mode .p-datatable .p-datatable-thead > tr > th {
+  background: var(--surface-50);
+  color: var(--text-color);
+  border-color: var(--surface-border);
+}
+
+html.dark-mode .p-datatable .p-datatable-tbody > tr {
+  background: var(--surface-card);
+  color: var(--text-color);
+}
+
+html.dark-mode .p-datatable .p-datatable-tbody > tr > td {
+  border-color: var(--surface-border);
+}
+
+html.dark-mode .p-datatable-striped .p-datatable-tbody > tr:nth-child(even) {
+  background: var(--surface-50);
+}
+
+html.dark-mode .p-datatable .p-datatable-tbody > tr:not(.p-highlight):hover {
+  background: var(--surface-hover);
+}
+
+html.dark-mode .p-datatable .p-datatable-tbody > tr.p-highlight {
+  background: color-mix(in srgb, var(--primary-color) 20%, transparent);
+  color: var(--text-color);
+}
+
+/* Paginator */
+html.dark-mode .p-paginator {
+  background: var(--surface-card);
+  border-color: var(--surface-border);
+}
+
+html.dark-mode .p-paginator .p-paginator-pages .p-paginator-page {
+  color: var(--text-color);
+}
+
+html.dark-mode .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+  background: var(--primary-color);
+  color: var(--primary-color-text);
+}
+
+html.dark-mode .p-paginator .p-dropdown {
+  background: var(--surface-card);
+  border-color: var(--surface-border);
+}
+
+/* -----------------------------------------------------------------
+   Panel
+   ----------------------------------------------------------------- */
+html.dark-mode .p-panel {
+  background: var(--surface-card);
+  border-color: var(--surface-border);
+}
+
+html.dark-mode .p-panel-header {
+  background: var(--surface-50);
+  color: var(--text-color);
+  border-color: var(--surface-border);
+}
+
+html.dark-mode .p-panel-content {
+  background: var(--surface-card);
+  color: var(--text-color);
+}
+
+/* -----------------------------------------------------------------
+   Dialog
+   ----------------------------------------------------------------- */
+html.dark-mode .p-dialog {
+  background: var(--surface-card);
+}
+
+html.dark-mode .p-dialog-header {
+  background: var(--surface-card);
+  color: var(--text-color);
+  border-bottom: 1px solid var(--surface-border);
+}
+
+html.dark-mode .p-dialog-content {
+  background: var(--surface-card);
+  color: var(--text-color);
+}
+
+/* -----------------------------------------------------------------
+   Form Inputs
+   ----------------------------------------------------------------- */
+html.dark-mode .p-inputtext,
+html.dark-mode .p-dropdown,
+html.dark-mode .p-multiselect,
+html.dark-mode .p-calendar .p-inputtext,
+html.dark-mode .p-chips .p-chips-multiple-container,
+html.dark-mode .p-inputnumber .p-inputtext {
+  background: var(--surface-card);
+  color: var(--text-color);
+  border-color: var(--surface-border);
+}
+
+html.dark-mode .p-inputtext:enabled:focus,
+html.dark-mode .p-dropdown:focus,
+html.dark-mode .p-multiselect:focus,
+html.dark-mode .p-chips:focus-within {
+  box-shadow: 0 0 0 2px var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+html.dark-mode .p-inputtext::placeholder {
+  color: var(--text-color-secondary);
+}
+
+/* Invalid state - lighter red for visibility */
+html.dark-mode .p-invalid.p-inputtext,
+html.dark-mode .p-invalid.p-dropdown,
+html.dark-mode .p-invalid.p-multiselect {
+  border-color: #ef9a9a;
+}
+
+/* -----------------------------------------------------------------
+   Dropdown/Menu Panels
+   ----------------------------------------------------------------- */
+html.dark-mode .p-dropdown-panel,
+html.dark-mode .p-multiselect-panel,
+html.dark-mode .p-menu {
+  background: var(--surface-overlay);
+  border-color: var(--surface-border);
+}
+
+html.dark-mode .p-dropdown-panel .p-dropdown-items .p-dropdown-item,
+html.dark-mode .p-multiselect-panel .p-multiselect-items .p-multiselect-item,
+html.dark-mode .p-menu .p-menuitem-link {
+  color: var(--text-color);
+}
+
+html.dark-mode .p-dropdown-panel .p-dropdown-items .p-dropdown-item:hover,
+html.dark-mode .p-multiselect-panel .p-multiselect-items .p-multiselect-item:hover,
+html.dark-mode .p-menu .p-menuitem-link:hover {
+  background: var(--surface-hover);
+}
+
+html.dark-mode .p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight,
+html.dark-mode .p-multiselect-panel .p-multiselect-items .p-multiselect-item.p-highlight {
+  background: var(--highlight-bg);
+  color: var(--highlight-text-color);
+}
+
+/* -----------------------------------------------------------------
+   Checkbox, RadioButton, Switch
+   ----------------------------------------------------------------- */
+html.dark-mode .p-checkbox .p-checkbox-box,
+html.dark-mode .p-radiobutton .p-radiobutton-box {
+  background: var(--surface-card);
+  border-color: var(--surface-400);
+}
+
+html.dark-mode .p-checkbox .p-checkbox-box.p-highlight,
+html.dark-mode .p-radiobutton .p-radiobutton-box.p-highlight {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+html.dark-mode .p-checkbox .p-checkbox-box:focus,
+html.dark-mode .p-radiobutton .p-radiobutton-box:focus {
+  box-shadow: 0 0 0 2px var(--primary-color);
+}
+
+html.dark-mode .p-inputswitch .p-inputswitch-slider {
+  background: var(--surface-400);
+}
+
+html.dark-mode .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
+  background: var(--primary-color);
+}
+
+/* -----------------------------------------------------------------
+   Slider
+   ----------------------------------------------------------------- */
+html.dark-mode .p-slider .p-slider-range {
+  background: var(--primary-color);
+}
+
+html.dark-mode .p-slider .p-slider-handle {
+  border-color: var(--primary-color);
+  background: var(--surface-card);
+}
+
+/* -----------------------------------------------------------------
+   Toolbar
+   ----------------------------------------------------------------- */
+html.dark-mode .p-toolbar {
+  background: var(--surface-card);
+  border-color: var(--surface-border);
+}
+
+/* -----------------------------------------------------------------
+   Buttons
+   ----------------------------------------------------------------- */
+html.dark-mode .p-button.p-button-success {
+  background: #4caf50;
+  border-color: #4caf50;
+}
+
+html.dark-mode .p-button.p-button-secondary {
+  background: var(--surface-100);
+  border-color: var(--surface-border);
+  color: var(--text-color);
+}
+
+html.dark-mode .p-button.p-button-text {
+  color: var(--text-color);
+}
+
+html.dark-mode .p-button.p-button-text:hover {
+  background: var(--surface-hover);
+}
+
+/* -----------------------------------------------------------------
+   Tags
+   ----------------------------------------------------------------- */
+html.dark-mode .p-tag {
+  color: var(--text-color);
+}
+
+html.dark-mode .p-tag.p-tag-info {
+  background: rgba(100, 181, 246, 0.2);
+  color: #90caf9;
+}
+
+html.dark-mode .p-tag.p-tag-success {
+  background: rgba(129, 199, 132, 0.2);
+  color: #a5d6a7;
+}
+
+html.dark-mode .p-tag.p-tag-warning {
+  background: rgba(255, 183, 77, 0.2);
+  color: #ffcc80;
+}
+
+html.dark-mode .p-tag.p-tag-secondary {
+  background: var(--surface-100);
+  color: var(--text-color-secondary);
+}
+
+/* -----------------------------------------------------------------
+   Toast
+   ----------------------------------------------------------------- */
+html.dark-mode .p-toast .p-toast-message {
+  background: var(--surface-card);
+  border-color: var(--surface-border);
+}
+
+html.dark-mode .p-toast .p-toast-message-content {
+  color: var(--text-color);
+}
+
+/* -----------------------------------------------------------------
+   Confirm Dialog
+   ----------------------------------------------------------------- */
+html.dark-mode .p-confirm-dialog {
+  background: var(--surface-card);
+}
+
+html.dark-mode .p-confirm-dialog .p-confirm-dialog-message {
+  color: var(--text-color);
+}
+
+/* -----------------------------------------------------------------
+   Message
+   ----------------------------------------------------------------- */
+html.dark-mode .p-message {
+  background: var(--surface-card);
+  border-color: var(--surface-border);
+}
+
+html.dark-mode .p-message .p-message-text {
+  color: var(--text-color);
+}
+
+/* -----------------------------------------------------------------
+   Calendar
+   ----------------------------------------------------------------- */
+html.dark-mode .p-datepicker {
+  background: var(--surface-overlay);
+  border-color: var(--surface-border);
+  color: var(--text-color);
+}
+
+html.dark-mode .p-datepicker .p-datepicker-header {
+  background: var(--surface-overlay);
+  color: var(--text-color);
+  border-color: var(--surface-border);
+}
+
+html.dark-mode .p-datepicker table td > span {
+  color: var(--text-color);
+}
+
+html.dark-mode .p-datepicker table td > span:hover {
+  background: var(--surface-hover);
+}
+
+html.dark-mode .p-datepicker table td.p-datepicker-today > span {
+  background: var(--surface-100);
+  color: var(--text-color);
+}
+
+html.dark-mode .p-datepicker table td > span.p-highlight {
+  background: var(--primary-color);
+  color: var(--primary-color-text);
+}
+
+/* -----------------------------------------------------------------
+   Skeleton
+   ----------------------------------------------------------------- */
+html.dark-mode .p-skeleton {
+  background: var(--surface-100);
+}
+
+html.dark-mode .p-skeleton::after {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+}
+
+/* -----------------------------------------------------------------
+   Card shadows for dark mode
+   ----------------------------------------------------------------- */
+html.dark-mode .shadow-1 {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) !important;
+}
+
+html.dark-mode .shadow-2 {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4), 0 0 0 1px var(--surface-border) !important;
+}
+
+/* -----------------------------------------------------------------
+   Utility overrides
+   ----------------------------------------------------------------- */
+html.dark-mode .text-600 {
+  color: var(--text-color-secondary) !important;
+}
+
+html.dark-mode .surface-100 {
+  background-color: var(--surface-100) !important;
+}
+
+html.dark-mode .surface-card {
+  background-color: var(--surface-card) !important;
+}
+
+html.dark-mode .surface-border {
+  border-color: var(--surface-border) !important;
+}

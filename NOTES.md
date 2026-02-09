@@ -88,4 +88,13 @@ Toggle the class on <html> element for instant theme switching
 | Continuing | 5:20 PM - 02/08/2026 |
 | Stopped | 6:43 PM - 02/08/2026 |
 
-**Total Time:** 3hr and 5mins
+**Total Time:** 3hr and 5mins + adding 30 min penalty for not commiting CSS changes with final = 3hr 35mins
+
+## After Thouhgts 
+- I would want to go back and update the JS to TS
+- maybe update the colors - add more? 
+- rearrange the buttons on the ideas table header (new, refresh, download).
+- add the bulk actions to the grid view - didn't add it.
+- update table/grid button on ideas table to be more clear on what the action is. 
+- on the validation -  i would need or want more information on what is required and what is not
+- I could've cleaned up the logic for the validation more. for example line 612-617, No need for the mapping done here. just update the IDs

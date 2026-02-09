@@ -210,8 +210,4 @@ function save() {
 :deep(.p-chips-input-token input) {
   width: 100%;
 }
-
-:deep(.p-invalid) {
-  border-color: var(--red-500);
-}
 </style>

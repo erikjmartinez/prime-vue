@@ -671,30 +671,22 @@ onMounted(() => {
   margin-bottom: 0;
 }
 
+/* Panel content padding */
 :deep(.p-panel-content) {
   padding: 1.25rem;
 }
 
+/* Chips input width */
 :deep(.p-chips-input-token input) {
   width: 100%;
 }
 
+/* Form inputs full width */
 :deep(.p-inputtext),
 :deep(.p-dropdown),
 :deep(.p-multiselect),
 :deep(.p-calendar),
 :deep(.p-inputnumber) {
   width: 100%;
-}
-
-:deep(.p-invalid) {
-  border-color: var(--red-500);
-}
-
-/* Focus styles for accessibility */
-:deep(.p-inputtext:focus),
-:deep(.p-dropdown:focus),
-:deep(.p-checkbox .p-checkbox-box:focus) {
-  box-shadow: 0 0 0 2px var(--primary-color);
 }
 </style>

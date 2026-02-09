@@ -820,6 +820,7 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+/* Card container */
 .card {
   background: var(--surface-card);
   border-radius: var(--border-radius);
@@ -827,8 +828,8 @@ onMounted(async () => {
   padding: 1rem;
 }
 
+/* Bulk actions bar animation */
 .bulk-actions-bar {
-  border: 1px solid var(--surface-border);
   animation: slideDown 0.2s ease-out;
 }
 
@@ -843,22 +844,24 @@ onMounted(async () => {
   }
 }
 
+/* DataTable cell padding */
 :deep(.p-datatable .p-datatable-tbody > tr > td) {
   padding: 0.75rem;
 }
 
-:deep(.p-datatable .p-datatable-tbody > tr.p-highlight) {
-  background: var(--primary-color);
-  background: color-mix(in srgb, var(--primary-color) 15%, transparent);
-}
-
+/* Toolbar spacing */
 :deep(.p-toolbar) {
   padding: 0.75rem;
   gap: 0.5rem;
 }
 
-:deep(.p-button.p-button-success) {
-  background: var(--green-500);
-  border-color: var(--green-500);
+/* Grid card hover effect */
+.grid .surface-card {
+  border: 1px solid var(--surface-border);
+}
+
+.grid .surface-card:hover {
+  border-color: var(--surface-400);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 </style>
