@@ -323,10 +323,12 @@ const store = useIdeasStore()
 const toast = useToast()
 const confirm = useConfirm()
 
+import { CATEGORIES, STATUSES, getStatusSeverity } from '../constants'
+
 // Constants
 const VOTED_KEY = 'pv_voted_ideas'
-const categories = ['Platform', 'UI', 'Performance', 'Integrations', 'Security']
-const statuses = ['New', 'Planned', 'In Progress', 'Done']
+const categories = CATEGORIES
+const statuses = STATUSES
 
 // State
 const search = ref('')
@@ -440,15 +442,7 @@ const hasActiveFilters = computed(() =>
 )
 
 // Helpers
-function statusSeverity(status) {
-  const map = {
-    'Done': 'success',
-    'In Progress': 'warning',
-    'Planned': 'info',
-    'New': 'secondary'
-  }
-  return map[status] || 'secondary'
-}
+const statusSeverity = getStatusSeverity
 
 function clearFilters() {
   search.value = ''
@@ -592,14 +586,6 @@ onMounted(async () => {
   border-radius: var(--border-radius);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   padding: 1rem;
-}
-
-.line-clamp {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
 }
 
 :deep(.p-datatable .p-datatable-tbody > tr > td) {

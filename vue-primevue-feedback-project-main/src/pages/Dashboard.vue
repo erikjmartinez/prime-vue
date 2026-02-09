@@ -262,16 +262,10 @@ const chartOptions = {
   }
 }
 
+import { getStatusSeverity } from '../constants'
+
 // Helpers
-function statusSeverity(status) {
-  const map = {
-    'Done': 'success',
-    'In Progress': 'warning',
-    'Planned': 'info',
-    'New': 'secondary'
-  }
-  return map[status] || 'secondary'
-}
+const statusSeverity = getStatusSeverity
 
 function formatDate(dateStr) {
   if (!dateStr) return ''
@@ -316,14 +310,6 @@ function navigateToIdeas(status) {
   padding: 0.25rem 0.75rem;
   border-radius: 1rem;
   font-size: 0.875rem;
-}
-
-.line-clamp-2 {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
 }
 
 .hover\:shadow-3:hover {

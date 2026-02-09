@@ -123,9 +123,11 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue', 'submit'])
 
+import { CATEGORIES, STATUSES } from '../constants'
+
 // Constants
-const categories = ['Platform', 'UI', 'Performance', 'Integrations', 'Security']
-const statuses = ['New', 'Planned', 'In Progress', 'Done']
+const categories = CATEGORIES
+const statuses = STATUSES
 
 // Form state
 const form = reactive({ 

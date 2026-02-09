@@ -30,7 +30,6 @@
             rounded
             text
             @click="handleThemeToggle"
-            @keydown.ctrl.shift.l.prevent="handleThemeToggle"
             v-tooltip.bottom="themeTooltip"
             :aria-label="themeTooltip"
             :aria-pressed="isDark"

@@ -71,7 +71,11 @@ Import the light theme (saga-blue) statically at build time
 Create a dark mode CSS file that overrides CSS variables when .dark-mode class is present
 Toggle the class on <html> element for instant theme switching
 ```
-- Replace CDN loading with class toggle which will lead results to a ~10KB per theme load and ~2KB CSS override.
+- Replace CDN loading with class toggle which will lead results to a ~10KB per theme load and ~2KB CSS override. reduced 300ms of latency with this apporoach
+---
+## Last Check
+- Checking for where code can be optimized.
+- Cleaned up some duplicate code. Created a constants file for items referenced/declared in more then one file - CATEGORIES, STATUSES, PERSONAS, COMPLEXITY_OPTIONS, STATUS_SEVERITY_MAP
 ---
 
 ## ⏱️ Time Tracking

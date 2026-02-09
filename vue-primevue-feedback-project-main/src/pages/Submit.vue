@@ -417,20 +417,13 @@ const router = useRouter()
 const toast = useToast()
 const store = useIdeasStore()
 
+import { CATEGORIES, PERSONAS, COMPLEXITY_OPTIONS } from '../constants'
+
 // Constants
 const DRAFT_KEY = 'draft_submit_idea'
-const categories = ['Platform', 'UI', 'Performance', 'Integrations', 'Security']
-const personas = [
-  { label: 'Admin' },
-  { label: 'Developer' },
-  { label: 'Analyst' },
-  { label: 'End User' }
-]
-const complexityOptions = [
-  { label: 'Low - Quick win', value: 'Low' },
-  { label: 'Medium - Some effort', value: 'Medium' },
-  { label: 'High - Major undertaking', value: 'High' }
-]
+const categories = CATEGORIES
+const personas = PERSONAS
+const complexityOptions = COMPLEXITY_OPTIONS
 const minDate = new Date()
 
 // Form State
