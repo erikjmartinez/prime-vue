@@ -16,4 +16,12 @@ Notes:
 - started phase 3 @ 4:19 PM
 - lightbulb icon not showing. looking up documentation for icons - https://github.com/primefaces/primeicons/blob/master/raw-svg/lightbulb.svg
 - huh weird -  the bulb icon just doesnt want to load so i will try a different icon. no big deal. documentation is kind of meh
-- stopping here to take dogs out for a walk. will revist this within the next two hours (depending on my dogs and how long they want to go on a walk for.) - staopping -4:30PM 02/08/2026
+- stopping here to take dogs out for a walk. will revist this within the next two hours (depending on my dogs and how long they want to go on a walk for.) 
+
+- stopping @ 4:30PM 02/08/2026
+
+- Continuing @ 5:20 PM 02/08/2026
+
+- Total hours as of now: 1hr and 23mins
+
+
