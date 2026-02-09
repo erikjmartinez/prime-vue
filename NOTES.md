@@ -36,7 +36,31 @@
 
 ## Phase 4: 
 > **Started:** 5:47 PM
-
+- double checked phase 4 and made sure we had the  keyboard + SR support. Surpirse, it wasn't implemented.
+- shortcut for switching from light to dark theme is CRTL+SHIFT+L
+- intresting. SO for the themeing part, i am looking at the documentation here: https://primevue.org/theming/styled/#darkmode but looking at the code we are actually implementing it differently 
+```
+// Apply theme by swapping CSS link
+function applyTheme() {
+  const theme = isDark.value ? DARK_THEME : LIGHT_THEME
+  const linkId = 'theme-link'
+  
+  let link = document.getElementById(linkId)
+  
+  if (!link) {
+    // Create link element if it doesn't exist
+    link = document.createElement('link')
+    link.id = linkId
+    link.rel = 'stylesheet'
+    document.head.appendChild(link)
+  }
+  
+  link.href = `https://unpkg.com/primevue@3/resources/themes/${theme}/theme.css`
+  
+  // Save preference
+  localStorage.setItem(THEME_KEY, isDark.value ? 'dark' : 'light')
+}
+```
 
 ---
 
