@@ -6,6 +6,18 @@
         <div class="flex align-items-center gap-2">
           <Button label="New" icon="pi pi-plus" @click="openNew" />
           <Button label="Refresh" severity="secondary" icon="pi pi-refresh" @click="handleRefresh" :loading="store.loading" />
+          
+          <!-- Export Menu -->
+          <Button
+            icon="pi pi-download"
+            severity="secondary"
+            outlined
+            v-tooltip.top="'Export ideas'"
+            @click="toggleExportMenu"
+            aria-haspopup="true"
+            aria-controls="export-menu"
+          />
+          <Menu ref="exportMenu" id="export-menu" :model="exportMenuItems" popup />
         </div>
       </template>
       <template #end>
@@ -66,10 +78,56 @@
             offLabel="Table" 
             onIcon="pi pi-th-large" 
             offIcon="pi pi-list"
+            @change="clearSelection"
           />
         </div>
       </template>
     </Toolbar>
+
+    <!-- Bulk Actions Bar (shown when items selected in table view) -->
+    <div v-if="selectedIdeas.length > 0 && !grid" class="bulk-actions-bar surface-100 border-round p-3 mb-3 flex align-items-center gap-3 flex-wrap">
+      <div class="flex align-items-center gap-2">
+        <i class="pi pi-check-square text-primary"></i>
+        <span class="font-medium">{{ selectedIdeas.length }} selected</span>
+      </div>
+      
+      <div class="flex-1"></div>
+      
+      <div class="flex align-items-center gap-2">
+        <!-- Bulk Status Change -->
+        <Dropdown 
+          v-model="bulkStatus" 
+          :options="statuses" 
+          placeholder="Change Status"
+          class="w-10rem"
+        />
+        <Button 
+          label="Apply" 
+          icon="pi pi-check"
+          size="small"
+          :disabled="!bulkStatus"
+          @click="applyBulkStatus"
+        />
+        
+        <!-- Bulk Delete -->
+        <Button 
+          label="Delete" 
+          icon="pi pi-trash" 
+          severity="danger"
+          size="small"
+          @click="confirmBulkDelete"
+        />
+        
+        <!-- Clear Selection -->
+        <Button 
+          label="Clear" 
+          icon="pi pi-times" 
+          text
+          size="small"
+          @click="clearSelection"
+        />
+      </div>
+    </div>
 
     <!-- Active Filters Summary -->
     <div v-if="hasActiveFilters" class="flex align-items-center gap-2 mb-3 text-600">
@@ -216,6 +274,7 @@
     <!-- Table View (shown when data is loaded) -->
     <DataTable 
       v-else-if="!grid"
+      v-model:selection="selectedIdeas"
       :value="filtered" 
       dataKey="id" 
       paginator 
@@ -231,6 +290,9 @@
           <p class="m-0">No ideas found. Try adjusting your filters.</p>
         </div>
       </template>
+      
+      <!-- Selection Checkbox Column -->
+      <Column selectionMode="multiple" headerStyle="width: 3rem" />
       
       <Column v-if="visibleColumns.title" field="title" header="Title" sortable style="min-width: 200px">
         <template #body="{ data }">
@@ -338,7 +400,12 @@ const votingId = ref(null)
 const showForm = ref(false)
 const editing = ref(null)
 const columnMenu = ref(null)
+const exportMenu = ref(null)
 const showSkeleton = ref(true)
+
+// Bulk actions state
+const selectedIdeas = ref([])
+const bulkStatus = ref(null)
 
 // Skeleton placeholder rows
 const skeletonRows = ref(new Array(5))
@@ -411,6 +478,178 @@ const columnMenuItems = computed(() => [
 
 function toggleColumnMenu(event) {
   columnMenu.value.toggle(event)
+}
+
+function toggleExportMenu(event) {
+  exportMenu.value.toggle(event)
+}
+
+// Export Menu Items
+const exportMenuItems = computed(() => {
+  const count = selectedIdeas.value.length > 0 
+    ? `${selectedIdeas.value.length} selected` 
+    : `${filtered.value.length} ideas`
+  
+  return [
+    {
+      label: `Export CSV (${count})`,
+      icon: 'pi pi-file',
+      command: () => exportCSV()
+    },
+    {
+      label: `Export JSON (${count})`,
+      icon: 'pi pi-file-export',
+      command: () => exportJSON()
+    }
+  ]
+})
+
+// Export Functions
+function getExportData() {
+  // Use selected items if any, otherwise use filtered list
+  return selectedIdeas.value.length > 0 ? selectedIdeas.value : filtered.value
+}
+
+function convertToCSV(data) {
+  if (data.length === 0) return ''
+  
+  const headers = ['Title', 'Description', 'Category', 'Status', 'Votes', 'Tags', 'Created At']
+  const rows = data.map(idea => [
+    `"${(idea.title || '').replace(/"/g, '""')}"`,
+    `"${(idea.description || '').replace(/"/g, '""')}"`,
+    idea.category || '',
+    idea.status || '',
+    idea.votes || 0,
+    `"${(idea.tags || []).join(', ')}"`,
+    idea.createdAt || ''
+  ])
+  
+  return [headers.join(','), ...rows.map(r => r.join(','))].join('\n')
+}
+
+function downloadFile(content, filename, mimeType) {
+  const blob = new Blob([content], { type: mimeType })
+  const url = URL.createObjectURL(blob)
+  const link = document.createElement('a')
+  link.href = url
+  link.download = filename
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+  URL.revokeObjectURL(url)
+}
+
+function exportCSV() {
+  const data = getExportData()
+  if (data.length === 0) {
+    toast.add({
+      severity: 'warn',
+      summary: 'No Data',
+      detail: 'No ideas to export',
+      life: 3000
+    })
+    return
+  }
+  
+  const csv = convertToCSV(data)
+  downloadFile(csv, 'ideas.csv', 'text/csv;charset=utf-8;')
+  
+  toast.add({
+    severity: 'success',
+    summary: 'Export Complete',
+    detail: `Exported ${data.length} ideas to CSV`,
+    life: 3000
+  })
+}
+
+function exportJSON() {
+  const data = getExportData()
+  if (data.length === 0) {
+    toast.add({
+      severity: 'warn',
+      summary: 'No Data',
+      detail: 'No ideas to export',
+      life: 3000
+    })
+    return
+  }
+  
+  const json = JSON.stringify(data, null, 2)
+  downloadFile(json, 'ideas.json', 'application/json')
+  
+  toast.add({
+    severity: 'success',
+    summary: 'Export Complete',
+    detail: `Exported ${data.length} ideas to JSON`,
+    life: 3000
+  })
+}
+
+// Bulk Actions
+function clearSelection() {
+  selectedIdeas.value = []
+  bulkStatus.value = null
+}
+
+async function applyBulkStatus() {
+  if (!bulkStatus.value || selectedIdeas.value.length === 0) return
+  
+  const ids = selectedIdeas.value.map(i => i.id)
+  const status = bulkStatus.value
+  const count = ids.length
+  
+  try {
+    await store.bulkSetStatus(ids, status)
+    toast.add({
+      severity: 'success',
+      summary: 'Status Updated',
+      detail: `Changed status to "${status}" for ${count} ideas`,
+      life: 3000
+    })
+    clearSelection()
+  } catch (e) {
+    toast.add({
+      severity: 'error',
+      summary: 'Update Failed',
+      detail: e.message || 'Could not update status',
+      life: 5000
+    })
+  }
+}
+
+function confirmBulkDelete() {
+  const count = selectedIdeas.value.length
+  confirm.require({
+    message: `Are you sure you want to delete ${count} selected idea${count > 1 ? 's' : ''}?`,
+    header: 'Confirm Bulk Delete',
+    icon: 'pi pi-exclamation-triangle',
+    acceptClass: 'p-button-danger',
+    accept: () => executeBulkDelete(),
+    reject: () => {}
+  })
+}
+
+async function executeBulkDelete() {
+  const ids = selectedIdeas.value.map(i => i.id)
+  const count = ids.length
+  
+  try {
+    await store.bulkDelete(ids)
+    toast.add({
+      severity: 'success',
+      summary: 'Deleted',
+      detail: `Removed ${count} idea${count > 1 ? 's' : ''}`,
+      life: 3000
+    })
+    clearSelection()
+  } catch (e) {
+    toast.add({
+      severity: 'error',
+      summary: 'Delete Failed',
+      detail: e.message || 'Could not delete ideas',
+      life: 5000
+    })
+  }
 }
 
 // Computed
@@ -588,8 +827,29 @@ onMounted(async () => {
   padding: 1rem;
 }
 
+.bulk-actions-bar {
+  border: 1px solid var(--surface-border);
+  animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 :deep(.p-datatable .p-datatable-tbody > tr > td) {
   padding: 0.75rem;
+}
+
+:deep(.p-datatable .p-datatable-tbody > tr.p-highlight) {
+  background: var(--primary-color);
+  background: color-mix(in srgb, var(--primary-color) 15%, transparent);
 }
 
 :deep(.p-toolbar) {

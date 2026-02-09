@@ -76,6 +76,8 @@ Toggle the class on <html> element for instant theme switching
 ## Last Check
 - Checking for where code can be optimized.
 - Cleaned up some duplicate code. Created a constants file for items referenced/declared in more then one file - CATEGORIES, STATUSES, PERSONAS, COMPLEXITY_OPTIONS, STATUS_SEVERITY_MAP
+- implemented feature to export data as json or CSV file
+- bulk delete and update also implemented.
 ---
 
 ## ⏱️ Time Tracking
@@ -84,5 +86,6 @@ Toggle the class on <html> element for instant theme switching
 |-------|------|
 | Stopped | 4:30 PM - 02/08/2026 |
 | Continuing | 5:20 PM - 02/08/2026 |
+| Stopped | 6:43 PM - 02/08/2026 |
 
-**Total hours as of now:** 2hr and 35mins
+**Total Time:** 3hr and 5mins

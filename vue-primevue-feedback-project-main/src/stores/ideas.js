@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import { listIdeas, createIdea, updateIdea, deleteIdea, upvote } from '../services/api'
+import { listIdeas, createIdea, updateIdea, deleteIdea, upvote, bulkDeleteIdeas, bulkUpdateStatus } from '../services/api'
 
 export const useIdeasStore = defineStore('ideas', () => {
   // State
@@ -44,6 +44,16 @@ export const useIdeasStore = defineStore('ideas', () => {
     }
   }
 
+  async function bulkDelete(ids) {
+    await bulkDeleteIdeas(ids)
+    await refresh()
+  }
+
+  async function bulkSetStatus(ids, status) {
+    await bulkUpdateStatus(ids, status)
+    await refresh()
+  }
+
   // Computed stats
   const stats = computed(() => {
     const byStatus = items.value.reduce((acc, idea) => {
@@ -80,6 +90,8 @@ export const useIdeasStore = defineStore('ideas', () => {
     patch,
     remove,
     upvoteIdea,
+    bulkDelete,
+    bulkSetStatus,
     stats
   }
 })

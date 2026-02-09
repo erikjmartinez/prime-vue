@@ -92,3 +92,30 @@ export async function upvote(id) {
   write(ideas)
   return { id, votes: ideas[index].votes }
 }
+
+/**
+ * Bulk delete ideas
+ */
+export async function bulkDeleteIdeas(ids) {
+  await sleep(300)
+  const ideas = read() || []
+  const idSet = new Set(ids)
+  write(ideas.filter(x => !idSet.has(x.id)))
+  return { deleted: ids.length }
+}
+
+/**
+ * Bulk update status for ideas
+ */
+export async function bulkUpdateStatus(ids, status) {
+  await sleep(300)
+  const ideas = read() || []
+  const idSet = new Set(ids)
+  ideas.forEach(idea => {
+    if (idSet.has(idea.id)) {
+      idea.status = status
+    }
+  })
+  write(ideas)
+  return { updated: ids.length }
+}
